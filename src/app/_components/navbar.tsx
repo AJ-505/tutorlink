@@ -96,7 +96,7 @@ export function Navbar() {
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
-                  href="/login"
+                  href="/dashboard"
                   onClick={() => setActive("#find-tutors")}
                   className={cn(
                     "text-sm font-medium",
@@ -233,7 +233,7 @@ export function Navbar() {
                 How It Works
               </Link>
               <Link
-                href="/login"
+                href="/dashboard"
                 onClick={() => {
                   setActive("#find-tutors");
                   setOpen(false);
