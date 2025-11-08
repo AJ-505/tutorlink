@@ -160,7 +160,7 @@ export function Navbar() {
       {/* Mobile Nav */}
       <div className="md:hidden">
         <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild>
+          <SheetTrigger asChild aria-controls="radix-_R_46atnlb_">
             <Button variant="outline" size="icon" aria-label="Open menu">
               <svg
                 className="h-5 w-5"
