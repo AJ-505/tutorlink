@@ -10,7 +10,13 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetTitle,
+  SheetContent,
+  SheetTrigger,
+  SheetDescription,
+} from "@/components/ui/sheet";
 
 type ActiveClass =
   | "#home"
@@ -90,7 +96,7 @@ export function Navbar() {
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
-                  href="/login"
+                  href="/dashboard"
                   onClick={() => setActive("#find-tutors")}
                   className={cn(
                     "text-sm font-medium",
@@ -142,7 +148,11 @@ export function Navbar() {
       {/* Desktop CTAs */}
       <div className="hidden items-center gap-3 md:flex">
         <SignInButton>
-          <Button variant="brandOutline" size="lg" className="rounded-full">
+          <Button
+            variant="brandOutline"
+            size="lg"
+            className="cursor-pointer rounded-full"
+          >
             Log in
           </Button>
         </SignInButton>
@@ -150,7 +160,7 @@ export function Navbar() {
           <Button
             variant="brand"
             size="lg"
-            className="rounded-full shadow-md hover:text-black/90!"
+            className="cursor-pointer rounded-full shadow-md hover:text-black/90!"
           >
             Sign up
           </Button>
@@ -176,6 +186,10 @@ export function Navbar() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-64 px-3">
+            <SheetTitle className="sr-only">Menu</SheetTitle>
+            <SheetDescription className="sr-only">
+              The navigation menu for Tutorlink's homepage
+            </SheetDescription>
             <div className="font-poppins mt-6 flex flex-col gap-1">
               <Link
                 href="/"
@@ -223,7 +237,7 @@ export function Navbar() {
                 How It Works
               </Link>
               <Link
-                href="/login"
+                href="/dashboard"
                 onClick={() => {
                   setActive("#find-tutors");
                   setOpen(false);
@@ -274,7 +288,7 @@ export function Navbar() {
                   <Button
                     variant="brand"
                     size="lg"
-                    className="rounded-full shadow-md"
+                    className="cursor-pointer rounded-full shadow-md"
                     onClick={() => setOpen(false)}
                   >
                     Sign up
@@ -284,7 +298,7 @@ export function Navbar() {
                   <Button
                     variant="brandOutline"
                     size="lg"
-                    className="rounded-full"
+                    className="cursor-pointer rounded-full"
                     onClick={() => setOpen(false)}
                   >
                     Log in

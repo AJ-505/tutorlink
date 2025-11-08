@@ -109,7 +109,7 @@ export default function Home() {
                 variant="brand"
                 className="rounded-full px-6 py-6 text-black sm:py-3"
               >
-                <Link href="/login">Find Tutors</Link>
+                <Link href="/dashboard">Find Tutors</Link>
               </Button>
               <Button
                 asChild
