@@ -16,17 +16,27 @@ export const metadata: Metadata = {
 // Base body font
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 // For navbar and headings mix
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-poppins" });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
 // For hero headline
-const robotoMono = Roboto_Mono({ subsets: ["latin"], variable: "--font-roboto-mono" });
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-roboto-mono",
+});
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`${inter.variable} ${poppins.variable} ${geist.variable} ${robotoMono.variable}`}>
+      <html
+        lang="en"
+        className={`${inter.variable} ${poppins.variable} ${geist.variable} ${robotoMono.variable}`}
+      >
         <body className="font-sans antialiased">
           <TRPCReactProvider>
             {children}

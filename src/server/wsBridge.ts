@@ -1,5 +1,5 @@
 // src/server/wsBridge.ts
-import {env} from "@/env";
+import { env } from "@/env";
 const WEBSOCKET_URL = env.NEXT_PUBLIC_WEBSOCKET_URL;
 const WEBSOCKET_NOTIFICATION_URL = env.NEXT_PUBLIC_WEBSOCKET_NOTIFICATION_URL;
 

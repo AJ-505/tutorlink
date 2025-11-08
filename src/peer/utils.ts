@@ -8,17 +8,17 @@ export const peerBuildConnection = (id?: string): Peer => {
     path: "/peerjs",
     config: env.NEXT_PUBLIC_ICE_SERVER
       ? {
-        iceServers: [
-          {
-            urls: env.NEXT_PUBLIC_STUN_SERVER,
-          },
-          {
-            urls: env.NEXT_PUBLIC_ICE_SERVER,
-            username: env.NEXT_PUBLIC_ICE_USER,
-            credential: env.NEXT_PUBLIC_ICE_CRED,
-          },
-        ],
-      }
+          iceServers: [
+            {
+              urls: env.NEXT_PUBLIC_STUN_SERVER,
+            },
+            {
+              urls: env.NEXT_PUBLIC_ICE_SERVER,
+              username: env.NEXT_PUBLIC_ICE_USER,
+              credential: env.NEXT_PUBLIC_ICE_CRED,
+            },
+          ],
+        }
       : undefined,
   };
   try {
@@ -29,7 +29,9 @@ export const peerBuildConnection = (id?: string): Peer => {
   }
 };
 
-export const startVideoStream = (callback: (stream: MediaStream) => void | Promise<void>): void => {
+export const startVideoStream = (
+  callback: (stream: MediaStream) => void | Promise<void>,
+): void => {
   navigator.mediaDevices
     .getUserMedia({ video: { aspectRatio: 16 / 9 }, audio: true })
     .then(callback)
@@ -38,7 +40,12 @@ export const startVideoStream = (callback: (stream: MediaStream) => void | Promi
     });
 };
 
-export const placePeerCall = (peer: Peer, peerIdToCall: string, stream: MediaStream, callback: (stream: MediaStream) => void): void => {
+export const placePeerCall = (
+  peer: Peer,
+  peerIdToCall: string,
+  stream: MediaStream,
+  callback: (stream: MediaStream) => void,
+): void => {
   try {
     const call = peer.call(peerIdToCall, stream);
     call.on("stream", callback);
