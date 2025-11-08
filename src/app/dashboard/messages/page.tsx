@@ -1,12 +1,12 @@
 "use client";
 
-import { ConversationList } from '../_components/conversation-list';
+import { ConversationList } from "../_components/conversation-list";
 
 export default function MessagesPage() {
-    return (
-        <div>
-            <h1 className="text-xl font-semibold text-neutral-900 mb-4">Messages</h1>
-            <ConversationList />
-        </div>
-    );
+  return (
+    <div>
+      <h1 className="mb-4 text-xl font-semibold text-neutral-900">Messages</h1>
+      <ConversationList />
+    </div>
+  );
 }

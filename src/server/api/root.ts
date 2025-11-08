@@ -1,7 +1,11 @@
-import { createCallerFactory, createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import {
+  createCallerFactory,
+  createTRPCRouter,
+  publicProcedure,
+} from "@/server/api/trpc";
 import { tutorRouter } from "@/server/api/routers/tutor";
 import { studentRouter } from "@/server/api/routers/student";
-import { chatRouter } from './routers/chat';
+import { chatRouter } from "./routers/chat";
 import { signalRouter } from "@/server/api/routers/signal";
 
 /**

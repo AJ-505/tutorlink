@@ -33,4 +33,3 @@ export const invokeModel = async (inputText: string) => {
   };
   return body;
 };
-

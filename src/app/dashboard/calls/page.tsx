@@ -1,7 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { peerBuildConnection, placePeerCall, terminatePeerCall, toggleAudio, toggleVideo, startVideoStream } from "@/peer/utils";
+import {
+  peerBuildConnection,
+  placePeerCall,
+  terminatePeerCall,
+  toggleAudio,
+  toggleVideo,
+  startVideoStream,
+} from "@/peer/utils";
 import { useUser } from "@clerk/nextjs";
 import { type Peer, type MediaConnection } from "peerjs";
 import { useEffect, useRef, useState } from "react";
@@ -125,8 +132,19 @@ export default function CallsPage() {
         </Button>
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <video ref={localVideoRef} autoPlay playsInline muted className="aspect-video w-full rounded-md bg-neutral-200" />
-        <video ref={remoteVideoRef} autoPlay playsInline className="aspect-video w-full rounded-md bg-neutral-200" />
+        <video
+          ref={localVideoRef}
+          autoPlay
+          playsInline
+          muted
+          className="aspect-video w-full rounded-md bg-neutral-200"
+        />
+        <video
+          ref={remoteVideoRef}
+          autoPlay
+          playsInline
+          className="aspect-video w-full rounded-md bg-neutral-200"
+        />
       </div>
     </div>
   );

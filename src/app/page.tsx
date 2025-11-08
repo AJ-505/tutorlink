@@ -12,7 +12,9 @@ export default function Home() {
     <div className="space-y-6">
       {steps.map((s) => (
         <div key={s.number} className="flex items-start gap-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1E88FF] text-sm font-bold text-white">{s.number}</div>
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1E88FF] text-sm font-bold text-white">
+            {s.number}
+          </div>
           <div>
             <span className="font-semibold text-neutral-900">{s.label}</span>
             <span className="text-[#1E88FF]">{s.highlight}</span>
@@ -39,7 +41,10 @@ export default function Home() {
         <Navbar />
 
         {/* Hero Section - Mobile First */}
-        <section id="home" className="scroll-mt-24 mt-8 grid grid-cols-1 gap-8 px-2 sm:mt-12 sm:px-4 lg:grid-cols-2 lg:gap-12">
+        <section
+          id="home"
+          className="mt-8 grid scroll-mt-24 grid-cols-1 gap-8 px-2 sm:mt-12 sm:px-4 lg:grid-cols-2 lg:gap-12"
+        >
           {/* Left Content */}
           <div className="flex flex-col gap-4 sm:gap-6">
             <p className="text-xl font-semibold text-neutral-800 sm:text-2xl">
@@ -88,8 +93,10 @@ export default function Home() {
                   TutorLink&apos;s got you.
                 </p>
                 <p className="mt-2 text-sm text-neutral-800 sm:text-base">
-                  Tap in, link up with <span className="font-semibold">verified tutors</span> in
-                  seconds, and get <span className="font-semibold">AI-powered</span> study notes
+                  Tap in, link up with{" "}
+                  <span className="font-semibold">verified tutors</span> in
+                  seconds, and get{" "}
+                  <span className="font-semibold">AI-powered</span> study notes
                   that keep you ahead — anytime, anywhere.
                 </p>
               </CardContent>
@@ -97,7 +104,11 @@ export default function Home() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button asChild variant="brand" className="rounded-full px-6 py-6 sm:py-3 text-black">
+              <Button
+                asChild
+                variant="brand"
+                className="rounded-full px-6 py-6 text-black sm:py-3"
+              >
                 <Link href="/login">Find Tutors</Link>
               </Button>
               <Button
@@ -119,12 +130,12 @@ export default function Home() {
         {/* About Section */}
         <section id="about" className="scroll-mt-24 py-12 sm:py-16 lg:py-20">
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <Card className="overflow-hidden bg-white/90 backdrop-blur-sm shadow-lg">
+            <Card className="overflow-hidden bg-white/90 shadow-lg backdrop-blur-sm">
               <CardContent className="p-0">
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
                   {/* Left Side - Illustration */}
                   <div className="relative p-6 sm:p-8 lg:p-12">
-                    <div className="aspect-square w-full max-w-md mx-auto lg:mx-0">
+                    <div className="mx-auto aspect-square w-full max-w-md lg:mx-0">
                       <Image
                         src="/images/Group 46.png"
                         alt="TutorLink learning platform illustration"
@@ -137,14 +148,18 @@ export default function Home() {
 
                   {/* Right Side - Content */}
                   <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-12">
-                    <h2 className="mb-6 font-poppins text-2xl font-semibold text-neutral-900 sm:text-3xl lg:text-4xl">
+                    <h2 className="font-poppins mb-6 text-2xl font-semibold text-neutral-900 sm:text-3xl lg:text-4xl">
                       About TutorLink
                     </h2>
                     <p className="mb-6 text-base leading-relaxed text-neutral-700 sm:text-lg">
-                      TutorLink is an intelligent learning platform built to make finding and connecting with the right tutor simple, instant, and meaningful.
+                      TutorLink is an intelligent learning platform built to
+                      make finding and connecting with the right tutor simple,
+                      instant, and meaningful.
                     </p>
                     <p className="mb-8 text-base leading-relaxed text-neutral-700 sm:text-lg">
-                      We use advanced AI to match students with tutors based on learning style, subject needs, and availability — so every session feels personalized and productive.
+                      We use advanced AI to match students with tutors based on
+                      learning style, subject needs, and availability — so every
+                      session feels personalized and productive.
                     </p>
                     <div className="text-right">
                       <Link
@@ -162,14 +177,19 @@ export default function Home() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="scroll-mt-24 py-12 sm:py-16 lg:py-20">
+        <section
+          id="how-it-works"
+          className="scroll-mt-24 py-12 sm:py-16 lg:py-20"
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             {/* Steps helper defined above */}
 
             {/* For Students */}
             <div className="mb-16 lg:mb-20">
               <div className="mb-8 rounded-2xl bg-[#1E88FF] px-6 py-4 text-center">
-                <h3 className="font-poppins text-xl font-bold text-white sm:text-2xl">FOR STUDENTS</h3>
+                <h3 className="font-poppins text-xl font-bold text-white sm:text-2xl">
+                  FOR STUDENTS
+                </h3>
               </div>
 
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
@@ -194,7 +214,9 @@ export default function Home() {
             {/* For Tutors */}
             <div>
               <div className="mb-8 rounded-2xl bg-[#1E88FF] px-6 py-4 text-center">
-                <h3 className="font-poppins text-xl font-bold text-white sm:text-2xl">FOR TUTORS</h3>
+                <h3 className="font-poppins text-xl font-bold text-white sm:text-2xl">
+                  FOR TUTORS
+                </h3>
               </div>
 
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
@@ -219,16 +241,23 @@ export default function Home() {
         </section>
 
         {/* Find Tutors Section */}
-        <section id="find-tutors" className="scroll-mt-24 py-16 sm:py-20 lg:py-24">
+        <section
+          id="find-tutors"
+          className="scroll-mt-24 py-16 sm:py-20 lg:py-24"
+        >
           <div className="relative overflow-hidden rounded-3xl bg-linear-to-b from-[#1E88FF] via-white to-[#1E88FF]">
             <div className="relative mx-auto max-w-4xl px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
               <div className="text-center">
-                <h2 className="mb-8 font-poppins text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl">
+                <h2 className="font-poppins mb-8 text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl">
                   FIND TUTORS
                 </h2>
                 <div className="mt-12">
                   <p className="font-poppins text-lg font-medium text-neutral-900 sm:text-xl">
-                    Getting <em>help</em> or sharing your <strong>knowledge</strong> has never been <em><strong>easier.</strong></em>
+                    Getting <em>help</em> or sharing your{" "}
+                    <strong>knowledge</strong> has never been{" "}
+                    <em>
+                      <strong>easier.</strong>
+                    </em>
                   </p>
                 </div>
                 <div className="mt-8">
@@ -256,7 +285,8 @@ export default function Home() {
                 </h2>
                 <div className="mt-8">
                   <p className="text-lg text-neutral-700 sm:text-xl">
-                    AI-powered study notes and educational content tailored to your learning journey.
+                    AI-powered study notes and educational content tailored to
+                    your learning journey.
                   </p>
                 </div>
               </div>
@@ -271,14 +301,18 @@ export default function Home() {
               <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 {/* Contact Us */}
                 <div className="text-center md:text-left">
-                  <h3 className="mb-4 font-poppins text-xl font-bold italic text-white sm:text-2xl">
+                  <h3 className="font-poppins mb-4 text-xl font-bold text-white italic sm:text-2xl">
                     Contact Us
                   </h3>
                   <p className="mb-4 text-white">
                     Got a question, suggestion, or partnership idea?
                   </p>
                   <div className="flex items-center justify-center gap-2 text-white md:justify-start">
-                    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <svg
+                      className="h-5 w-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
                       <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                       <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                     </svg>
@@ -288,28 +322,41 @@ export default function Home() {
 
                 {/* Phone & Email */}
                 <div className="text-center md:text-left">
-                  <h3 className="mb-4 font-poppins text-xl font-bold italic text-white sm:text-2xl">
+                  <h3 className="font-poppins mb-4 text-xl font-bold text-white italic sm:text-2xl">
                     Phone & Email
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-center gap-2 text-white md:justify-start">
-                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                      <svg
+                        className="h-5 w-5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
-                      <span>{env.NEXT_PUBLIC_CONTACT_PHONE_PRIMARY ?? "Unavailable"}</span>
+                      <span>
+                        {env.NEXT_PUBLIC_CONTACT_PHONE_PRIMARY ?? "Unavailable"}
+                      </span>
                     </div>
                     <div className="flex items-center justify-center gap-2 text-white md:justify-start">
-                      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                      <svg
+                        className="h-5 w-5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                       </svg>
-                      <span>{env.NEXT_PUBLIC_CONTACT_PHONE_SECONDARY ?? "Unavailable"}</span>
+                      <span>
+                        {env.NEXT_PUBLIC_CONTACT_PHONE_SECONDARY ??
+                          "Unavailable"}
+                      </span>
                     </div>
                   </div>
                 </div>
 
                 {/* Info */}
                 <div className="text-center md:text-left">
-                  <h3 className="mb-4 font-poppins text-xl font-bold italic text-white sm:text-2xl">
+                  <h3 className="font-poppins mb-4 text-xl font-bold text-white italic sm:text-2xl">
                     Info
                   </h3>
                   <div className="text-white">

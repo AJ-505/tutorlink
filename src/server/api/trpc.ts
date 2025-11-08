@@ -1,7 +1,7 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import {  currentUser } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { type User } from "@clerk/nextjs/server";
 
 import { db } from "@/server/db";
@@ -23,7 +23,7 @@ async function createContextInner(opts: CreateContextInnerOptions) {
 
 export async function createTRPCContext(_opts: { headers: Headers }) {
   const user = await currentUser();
-  return createContextInner({ user});
+  return createContextInner({ user });
 }
 
 export type Context = Awaited<ReturnType<typeof createContextInner>>;

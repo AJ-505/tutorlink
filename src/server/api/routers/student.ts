@@ -32,40 +32,41 @@ export const studentRouter = createTRPCRouter({
         });
       }
 
-      const profile = await ctx.db.$transaction(async (tx) => {
-        const user = await tx.user.upsert({
-          where: { clerkUid: clerkUser.id },
-          update: { name, email },
-          create: {
-            clerkUid: clerkUser.id,
-            name,
-            email,
-            role: "STUDENT",
-          },
-        });
-
-        const existingProfile = await tx.studentProfile.findUnique({
-          where: { userId: user.id },
-        });
-
-        if (existingProfile) {
-          throw new TRPCError({
-            code: "BAD_REQUEST",
-            message: "Student profile already exists.",
+      const profile = await ctx.db.$transaction(
+        async (tx) => {
+          const user = await tx.user.upsert({
+            where: { clerkUid: clerkUser.id },
+            update: { name, email },
+            create: {
+              clerkUid: clerkUser.id,
+              name,
+              email,
+              role: "STUDENT",
+            },
           });
-        }
 
-        const newProfile = await tx.studentProfile.create({
-          data: {
-            userId: user.id,
-            goals: input.goals,
-            learningStyle: input.learningStyle,
-            preferredTutorGender: input.preferredTutorGender,
-            subjectInterests: input.subjectsOfInterest,
-          },
-        });
+          const existingProfile = await tx.studentProfile.findUnique({
+            where: { userId: user.id },
+          });
 
-        const embeddingText = `
+          if (existingProfile) {
+            throw new TRPCError({
+              code: "BAD_REQUEST",
+              message: "Student profile already exists.",
+            });
+          }
+
+          const newProfile = await tx.studentProfile.create({
+            data: {
+              userId: user.id,
+              goals: input.goals,
+              learningStyle: input.learningStyle,
+              preferredTutorGender: input.preferredTutorGender,
+              subjectInterests: input.subjectsOfInterest,
+            },
+          });
+
+          const embeddingText = `
                     This text describes a student profile for an AI tutoring match system.
                     Learning Goals:
                     ${input.goals.map((g) => `- ${g}`).join("\n")}
@@ -75,15 +76,17 @@ export const studentRouter = createTRPCRouter({
                     ${input.learningStyle.map((l) => `- ${l}`).join("\n")}
                 `;
 
-        const { embedding } = await invokeModel(embeddingText);
+          const { embedding } = await invokeModel(embeddingText);
 
-        await tx.studentProfile.update({
-          where: { id: newProfile.id },
-          data: { embedding },
-        });
+          await tx.studentProfile.update({
+            where: { id: newProfile.id },
+            data: { embedding },
+          });
 
-        return newProfile;
-      }, { timeout: 10_000 });
+          return newProfile;
+        },
+        { timeout: 10_000 },
+      );
 
       return {
         success: true,
@@ -175,7 +178,10 @@ ${updatedProfile.learningStyle.map((l) => `- ${l}`).join("\n")}
     //             ORDER BY similarity DESC
     //             LIMIT 15
     //         `;
-    const tutors = await ctx.db.tutorProfile.findMany({ take: 10, include: { user: true } });
+    const tutors = await ctx.db.tutorProfile.findMany({
+      take: 10,
+      include: { user: true },
+    });
 
     return tutors;
   }),
