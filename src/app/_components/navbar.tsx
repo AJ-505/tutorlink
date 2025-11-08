@@ -148,7 +148,11 @@ export function Navbar() {
       {/* Desktop CTAs */}
       <div className="hidden items-center gap-3 md:flex">
         <SignInButton>
-          <Button variant="brandOutline" size="lg" className="rounded-full">
+          <Button
+            variant="brandOutline"
+            size="lg"
+            className="cursor-pointer rounded-full"
+          >
             Log in
           </Button>
         </SignInButton>
@@ -156,7 +160,7 @@ export function Navbar() {
           <Button
             variant="brand"
             size="lg"
-            className="rounded-full shadow-md hover:text-black/90!"
+            className="cursor-pointer rounded-full shadow-md hover:text-black/90!"
           >
             Sign up
           </Button>
@@ -284,7 +288,7 @@ export function Navbar() {
                   <Button
                     variant="brand"
                     size="lg"
-                    className="rounded-full shadow-md"
+                    className="cursor-pointer rounded-full shadow-md"
                     onClick={() => setOpen(false)}
                   >
                     Sign up
@@ -294,7 +298,7 @@ export function Navbar() {
                   <Button
                     variant="brandOutline"
                     size="lg"
-                    className="rounded-full"
+                    className="cursor-pointer rounded-full"
                     onClick={() => setOpen(false)}
                   >
                     Log in
