@@ -10,7 +10,13 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetTitle,
+  SheetContent,
+  SheetTrigger,
+  SheetDescription,
+} from "@/components/ui/sheet";
 
 type ActiveClass =
   | "#home"
@@ -176,6 +182,10 @@ export function Navbar() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-64 px-3">
+            <SheetTitle className="sr-only">Menu</SheetTitle>
+            <SheetDescription className="sr-only">
+              The navigation menu for Tutorlink's homepage
+            </SheetDescription>
             <div className="font-poppins mt-6 flex flex-col gap-1">
               <Link
                 href="/"
