@@ -7,7 +7,7 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    DATABASE_URL: z.string().url(),
+    DATABASE_URL: z.url(),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
@@ -24,15 +24,15 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
     NEXT_PUBLIC_PEER_HOST: z.string().default("localhost"),
-    NEXT_PUBLIC_PEER_PORT: z.number({ coerce: true }).optional(),
+    NEXT_PUBLIC_PEER_PORT: z.coerce.number().optional(),
     NEXT_PUBLIC_STUN_SERVER: z.string().optional(),
     NEXT_PUBLIC_ICE_SERVER: z.string().optional(),
     NEXT_PUBLIC_ICE_USER: z.string().optional(),
     NEXT_PUBLIC_ICE_CRED: z.string().optional(),
     NEXT_PUBLIC_CONTACT_PHONE_PRIMARY: z.string().optional(),
     NEXT_PUBLIC_CONTACT_PHONE_SECONDARY: z.string().optional(),
-    NEXT_PUBLIC_WEBSOCKET_URL: z.string().url(),
-    NEXT_PUBLIC_WEBSOCKET_NOTIFICATION_URL: z.string().url(),
+    NEXT_PUBLIC_WEBSOCKET_URL: z.url(),
+    NEXT_PUBLIC_WEBSOCKET_NOTIFICATION_URL: z.url(),
   },
 
   /**
