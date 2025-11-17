@@ -4,6 +4,9 @@
 @theme inline {
   --font-cal: var(--font-cal);
   --font-inter: var(--font-inter);
+
+  /* Primary font: Inter*/
+  --font-primary: var(--font-inter);
 }
 
 @custom-variant dark (&:is(.dark *));
@@ -204,6 +207,11 @@
   .tl-hover-rounded:hover {
     border-radius: 0.75rem;
     /* rounded-xl */
+  }
+
+  /* This ensures flexibility for changing the primary font in future */
+  .font-primary {
+    font-family: var(--font-primary);
   }
 
   .font-cal {
