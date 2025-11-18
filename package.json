@@ -25,6 +25,7 @@
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.917.0",
     "@clerk/nextjs": "^6.34.0",
+    "@next/bundle-analyzer": "^16.0.3",
     "@prisma/adapter-neon": "^6.19.0",
     "@prisma/client": "^6.5.0",
     "@radix-ui/react-dialog": "^1.1.15",
