@@ -47,7 +47,7 @@ export default function Home() {
         >
           {/* Left Content */}
           <div className="flex flex-col gap-4 sm:gap-6">
-            <p className="text-xl font-semibold text-neutral-800 sm:text-2xl">
+            <p className="font-inter text-xl font-semibold text-neutral-800 sm:text-2xl">
               Welcome To
             </p>
 
