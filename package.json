@@ -25,6 +25,7 @@
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.917.0",
     "@clerk/nextjs": "^6.34.0",
+    "@next/bundle-analyzer": "^16.0.3",
     "@prisma/adapter-neon": "^6.19.0",
     "@prisma/client": "^6.5.0",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -62,6 +63,7 @@
     "@types/node": "^20.14.10",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^9.23.0",
     "eslint-config-next": "^16.0.1",
     "postcss": "^8.5.3",
