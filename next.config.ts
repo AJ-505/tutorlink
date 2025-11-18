@@ -5,6 +5,10 @@
 import type { NextConfig } from "next";
 import "./src/env.js";
 
+const withBundleAnaylzer = (await import("@next/bundle-analyzer")).default({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const nextConfig: NextConfig = {
   cacheComponents: true,
   reactCompiler: true,
@@ -14,4 +18,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withBundleAnaylzer(nextConfig);
