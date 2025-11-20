@@ -1,7 +1,15 @@
 "use client";
 
-import { SignalForm } from "./_components/signal-form";
+import dynamic from "next/dynamic";
 import { Activity, Clock, Trash2, Zap } from "lucide-react";
+
+const SignalForm = dynamic(
+  () => import("./_components/signal-form").then((mod) => mod.SignalForm),
+  {
+    loading: () => <div className="h-64 animate-pulse rounded-lg bg-gray-200" />,
+    ssr: false,
+  },
+);
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";

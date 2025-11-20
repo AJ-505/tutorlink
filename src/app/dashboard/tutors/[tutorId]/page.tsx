@@ -1,14 +1,25 @@
-"use client";
+import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import { TutorProfileView } from "./_components/tutor-profile-view";
 
-import { useParams } from "next/navigation";
+export async function generateStaticParams() {
+  return [{ tutorId: "__placeholder__" }];
+}
 
-export default function TutorProfilePage() {
-  const { tutorId } = useParams();
+export default async function TutorProfilePage({
+  params,
+}: {
+  params: Promise<{ tutorId: string }>;
+}) {
+  const { tutorId } = await params;
+
+  if (tutorId === "__placeholder__") {
+    notFound();
+  }
 
   return (
-    <div>
-      <h1 className="text-xl font-semibold">Tutor Profile</h1>
-      <p>Tutor ID: {tutorId}</p>
-    </div>
+    <Suspense fallback={<div className="h-32 animate-pulse rounded bg-gray-200" />}>
+      <TutorProfileView tutorId={tutorId} />
+    </Suspense>
   );
 }

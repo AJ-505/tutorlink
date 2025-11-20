@@ -1,25 +1,28 @@
 import "server-only";
-import { auth } from "@clerk/nextjs/server";
 import { api } from "@/trpc/server";
+import { Suspense } from "react";
 
-export default async function EditProfilePage() {
-  const { isAuthenticated, redirectToSignIn } = await auth();
-  if (!isAuthenticated) return redirectToSignIn();
-
-  // Fetch existing profiles (either student or tutor) for prefill (future work)
+async function ProfileContent() {
   const [student, tutor] = await Promise.all([
     api.student.getProfile(),
     api.tutor.getProfile(),
   ]);
 
   return (
+    <p className="text-sm text-neutral-600">
+      Prefill coming from your current{" "}
+      {tutor ? "tutor" : student ? "student" : "—"} profile.
+    </p>
+  );
+}
+
+export default function EditProfilePage() {
+  return (
     <div className="space-y-2">
       <h1 className="text-xl font-semibold text-neutral-900">Edit profile</h1>
-      <p className="text-sm text-neutral-600">
-        Prefill coming from your current{" "}
-        {tutor ? "tutor" : student ? "student" : "—"} profile.
-      </p>
-      {/* TODO: add client form to update via tRPC */}
+      <Suspense fallback={<div className="h-6 w-64 animate-pulse rounded bg-gray-200" />}>
+        <ProfileContent />
+      </Suspense>
     </div>
   );
 }

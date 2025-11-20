@@ -2,7 +2,6 @@ import "server-only";
 import type { ReactNode } from "react";
 import { Sidebar } from "./_components/sidebar";
 
-// The Clerk middleware handles auth protection, so this layout is only reached by authenticated users
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen w-full bg-linear-to-b from-white via-blue-50 to-[#F3F8FF]">
