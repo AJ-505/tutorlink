@@ -2,14 +2,16 @@
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
-import type { NextConfig } from "next";
 import "./src/env.js";
 
-const withBundleAnaylzer = (await import("@next/bundle-analyzer")).default({
+const { default: createBundleAnalyzer } = await import("@next/bundle-analyzer");
+
+const withBundleAnalyzer = createBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   cacheComponents: true,
   reactCompiler: true,
 
@@ -18,4 +20,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withBundleAnaylzer(nextConfig);
+export default withBundleAnalyzer(nextConfig);
