@@ -6,7 +6,9 @@ import { Activity, Clock, Trash2, Zap } from "lucide-react";
 const SignalForm = dynamic(
   () => import("./_components/signal-form").then((mod) => mod.SignalForm),
   {
-    loading: () => <div className="h-64 animate-pulse rounded-lg bg-gray-200" />,
+    loading: () => (
+      <div className="h-64 animate-pulse rounded-lg bg-gray-200" />
+    ),
     ssr: false,
   },
 );

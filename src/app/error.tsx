@@ -8,14 +8,14 @@ type ErrorBoundaryProps = {
   reset: () => void;
 };
 
-function RootError({ error, reset }: ErrorBoundaryProps) {
+export default function RootError({ error, reset }: ErrorBoundaryProps) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error("Global error:", error);
   }, [error]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-4">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-3 px-4">
       <div className="text-center">
         <h1 className="mb-2 text-4xl font-bold text-gray-900 dark:text-gray-100">
           Something went wrong!
@@ -36,5 +36,3 @@ function RootError({ error, reset }: ErrorBoundaryProps) {
     </div>
   );
 }
-
-export default RootError;
