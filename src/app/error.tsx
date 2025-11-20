@@ -8,7 +8,11 @@ type ErrorBoundaryProps = {
   reset: () => void;
 };
 
+<<<<<<< HEAD
 export default function RootError({ error, reset }: ErrorBoundaryProps) {
+=======
+function RootError({ error, reset }: ErrorBoundaryProps) {
+>>>>>>> e8bcddc (Fix: Minor issues)
   useEffect(() => {
     // Log the error to an error reporting service
     console.error("Global error:", error);
@@ -36,3 +40,5 @@ export default function RootError({ error, reset }: ErrorBoundaryProps) {
     </div>
   );
 }
+
+export default RootError;
