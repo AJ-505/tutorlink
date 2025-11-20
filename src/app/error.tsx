@@ -3,13 +3,12 @@
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
-export default function Error({
-  error,
-  reset,
-}: {
+type ErrorBoundaryProps = {
   error: Error & { digest?: string };
   reset: () => void;
-}) {
+};
+
+function RootError({ error, reset }: ErrorBoundaryProps) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error("Global error:", error);
@@ -37,3 +36,5 @@ export default function Error({
     </div>
   );
 }
+
+export default RootError;
