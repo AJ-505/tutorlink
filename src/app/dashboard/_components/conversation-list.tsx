@@ -2,6 +2,7 @@
 
 import { api } from "@/trpc/react";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function ConversationList() {
   const router = useRouter();
@@ -9,7 +10,19 @@ export function ConversationList() {
     api.chat.getConversations.useQuery();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="space-y-2">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div
+            key={i}
+            className="rounded-lg border border-neutral-200 bg-white p-4"
+          >
+            <Skeleton className="mb-2 h-5 w-48" />
+            <Skeleton className="h-4 w-full" />
+          </div>
+        ))}
+      </div>
+    );
   }
 
   return (
