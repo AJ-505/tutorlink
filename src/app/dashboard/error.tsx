@@ -24,13 +24,9 @@ export default function DashboardError({
           Dashboard Error
         </h2>
         <p className="mb-6 max-w-md text-gray-600 dark:text-gray-400">
-<<<<<<< HEAD
           Something went wrong while loading the dashboard. This has been logged
-          and we&#39;ll look into it.
-=======
-          Something went wrong while loading the dashboard. This has been
-          logged and we&#39;ll look into it.
->>>>>>> e8bcddc (Fix: Minor issues)
+          and we&#39;ll look into it. Something went wrong while loading the
+          dashboard. This has been logged and we&#39;ll look into it.
         </p>
         {error.digest && (
           <p className="mb-4 text-sm text-gray-500">Error ID: {error.digest}</p>
