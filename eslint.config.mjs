@@ -23,6 +23,7 @@ export default defineConfig([
       },
     },
     rules: {
+      "react/no-unescaped-entities": "off",
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
       "@typescript-eslint/consistent-type-imports": [
