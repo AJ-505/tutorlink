@@ -18,7 +18,9 @@ export default async function TutorProfilePage({
   }
 
   return (
-    <Suspense fallback={<div className="h-32 animate-pulse rounded bg-gray-200" />}>
+    <Suspense
+      fallback={<div className="h-32 animate-pulse rounded bg-gray-200" />}
+    >
       <TutorProfileView tutorId={tutorId} />
     </Suspense>
   );

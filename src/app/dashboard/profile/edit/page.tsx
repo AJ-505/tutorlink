@@ -20,7 +20,11 @@ export default function EditProfilePage() {
   return (
     <div className="space-y-2">
       <h1 className="text-xl font-semibold text-neutral-900">Edit profile</h1>
-      <Suspense fallback={<div className="h-6 w-64 animate-pulse rounded bg-gray-200" />}>
+      <Suspense
+        fallback={
+          <div className="h-6 w-64 animate-pulse rounded bg-gray-200" />
+        }
+      >
         <ProfileContent />
       </Suspense>
     </div>
