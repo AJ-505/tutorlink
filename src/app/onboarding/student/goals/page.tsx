@@ -33,7 +33,7 @@ export default function StudentGoals() {
     <div className="min-h-screen w-full bg-linear-to-b from-white via-blue-50 to-[#43A8FF]">
       <div className="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
         <main className="mx-auto mt-10 max-w-2xl rounded-2xl bg-white/70 p-6 shadow-sm backdrop-blur sm:mt-14 sm:p-8">
-          <h1 className="font-poppins mb-2 text-2xl font-semibold text-neutral-800">
+          <h1 className="font-inter mb-2 text-2xl font-semibold text-neutral-800">
             Goals
           </h1>
           <p className="mb-6 text-neutral-600">

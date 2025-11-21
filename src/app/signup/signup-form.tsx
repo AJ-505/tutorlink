@@ -32,7 +32,7 @@ export function SignupForm() {
         <div className="mb-2 text-[#1E88FF]">
           <LogoMark />
         </div>
-        <h1 className="font-poppins text-3xl font-semibold text-neutral-900 sm:text-4xl">
+        <h1 className="font-inter text-3xl font-semibold text-neutral-900 sm:text-4xl">
           Sign<span className="text-[#1E88FF]">Up</span>
         </h1>
       </div>

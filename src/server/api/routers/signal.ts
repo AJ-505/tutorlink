@@ -12,14 +12,28 @@ import { broadcastToTutors, notifyStudent } from "@/server/wsBridge";
 export const signalRouter = createTRPCRouter({
   // Returns the current viewer's role for conditional UI rendering
   getViewerRole: protectedProcedure.query(async ({ ctx }) => {
+    console.log("User log: [API SIGNAL] === getViewerRole query called ===");
+    console.log("User log: [API SIGNAL] Clerk user ID:", ctx.user.id);
+
     // Query the DB user to get the canonical role
     const user = await ctx.db.user.findUnique({
       where: { clerkUid: ctx.user.id },
-      select: { role: true },
+      select: { role: true, id: true, email: true },
     });
 
+    console.log("User log: [API SIGNAL] User found in DB:", user?.id);
+    console.log("User log: [API SIGNAL] User email:", user?.email);
+    console.log("User log: [API SIGNAL] 🎯 ROLE FROM DATABASE:", user?.role);
+
+    if (!user) {
+      console.log("User log: [API SIGNAL] ⚠️ No user found in DB! Returning default: STUDENT");
+    }
+
+    const finalRole = user?.role ?? "STUDENT";
+    console.log("User log: [API SIGNAL] 📤 Returning role to frontend:", finalRole);
+
     // Return the user's role from DB or default to STUDENT if not found
-    return user?.role ?? "STUDENT";
+    return finalRole;
   }),
 
   createSignal: protectedProcedure

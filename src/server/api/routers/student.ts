@@ -19,21 +19,32 @@ export const studentRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      console.log("User log: [API STUDENT] === createProfile mutation called ===");
+      console.log("User log: [API STUDENT] Input received:", input);
+
       const clerkUser = ctx.user;
+      console.log("User log: [API STUDENT] Clerk user ID:", clerkUser.id);
+      console.log("User log: [API STUDENT] Clerk user name:", clerkUser.firstName, clerkUser.lastName);
+
       const name = `${clerkUser.firstName} ${clerkUser.lastName}`;
       const email = clerkUser.emailAddresses.find(
         (e) => e.id === clerkUser.primaryEmailAddressId,
       )?.emailAddress;
 
+      console.log("User log: [API STUDENT] Email found:", email);
+
       if (!email) {
+        console.log("User log: [API STUDENT] ❌ ERROR: No email found!");
         throw new TRPCError({
           code: "BAD_REQUEST",
           message: "No primary email address found for user.",
         });
       }
 
+      console.log("User log: [API STUDENT] Starting database transaction...");
       const profile = await ctx.db.$transaction(
         async (tx) => {
+          console.log("User log: [API STUDENT] Upserting user with role: STUDENT");
           const user = await tx.user.upsert({
             where: { clerkUid: clerkUser.id },
             update: { name, email },
@@ -44,18 +55,22 @@ export const studentRouter = createTRPCRouter({
               role: "STUDENT",
             },
           });
+          console.log("User log: [API STUDENT] User upserted:", user.id, "Role in DB:", user.role);
 
+          console.log("User log: [API STUDENT] Checking for existing profile...");
           const existingProfile = await tx.studentProfile.findUnique({
             where: { userId: user.id },
           });
 
           if (existingProfile) {
+            console.log("User log: [API STUDENT] ❌ ERROR: Profile already exists!");
             throw new TRPCError({
               code: "BAD_REQUEST",
               message: "Student profile already exists.",
             });
           }
 
+          console.log("User log: [API STUDENT] Creating student profile...");
           const newProfile = await tx.studentProfile.create({
             data: {
               userId: user.id,
@@ -65,6 +80,7 @@ export const studentRouter = createTRPCRouter({
               subjectInterests: input.subjectsOfInterest,
             },
           });
+          console.log("User log: [API STUDENT] ✅ Student profile created:", newProfile.id);
 
           const embeddingText = `
                     This text describes a student profile for an AI tutoring match system.
@@ -76,18 +92,24 @@ export const studentRouter = createTRPCRouter({
                     ${input.learningStyle.map((l) => `- ${l}`).join("\n")}
                 `;
 
+          console.log("User log: [API STUDENT] Generating embedding with AI...");
           const { embedding } = await invokeModel(embeddingText);
+          console.log("User log: [API STUDENT] Embedding generated, length:", embedding.length);
 
+          console.log("User log: [API STUDENT] Updating profile with embedding...");
           await tx.studentProfile.update({
             where: { id: newProfile.id },
             data: { embedding },
           });
+          console.log("User log: [API STUDENT] ✅ Profile updated with embedding");
 
           return newProfile;
         },
         { timeout: 10_000 },
       );
 
+      console.log("User log: [API STUDENT] ✅ Transaction complete! Profile created successfully");
+      console.log("User log: [API STUDENT] Final profile ID:", profile.id);
       return {
         success: true,
         message: "Student profile created successfully",

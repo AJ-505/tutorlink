@@ -37,14 +37,14 @@ export function Navbar() {
         onClick={() => setActive("#home")}
         className="flex items-center gap-1 text-xl font-bold"
       >
-        <span className="font-geist text-neutral-900">Tutor</span>
-        <span className="font-poppins text-[#1E88FF]">Link</span>
+        <span className="font-inter text-neutral-900">Tutor</span>
+        <span className="font-inter text-[#1E88FF]">Link</span>
       </Link>
 
       {/* Desktop Nav */}
       <div className="hidden md:block">
         <NavigationMenu>
-          <NavigationMenuList className="font-poppins">
+          <NavigationMenuList className="font-inter">
             <NavigationMenuItem>
               <NavigationMenuLink asChild>
                 <Link
@@ -190,7 +190,7 @@ export function Navbar() {
             <SheetDescription className="sr-only">
               The navigation menu for Tutorlink's homepage
             </SheetDescription>
-            <div className="font-poppins mt-6 flex flex-col gap-1">
+            <div className="font-inter mt-6 flex flex-col gap-1">
               <Link
                 href="/"
                 onClick={() => {

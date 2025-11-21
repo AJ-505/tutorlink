@@ -46,8 +46,16 @@ const items: Item[] = [
 export function Sidebar() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const { data: role } = api.signal.getViewerRole.useQuery();
+  const { data: role, isLoading, error } = api.signal.getViewerRole.useQuery();
+
+  console.log("User log: [SIDEBAR] === Sidebar rendering ===");
+  console.log("User log: [SIDEBAR] Role from API:", role);
+  console.log("User log: [SIDEBAR] Is loading:", isLoading);
+  console.log("User log: [SIDEBAR] Error:", error);
+
   const isTutor = role === "TUTOR";
+  console.log("User log: [SIDEBAR] 🎯 isTutor computed:", isTutor);
+  console.log("User log: [SIDEBAR] Badge will show:", isTutor ? "🎓 Tutor" : "👤 Student");
 
   const Nav = (
     <nav className="rounded-2xl bg-white/90 p-3 shadow-sm backdrop-blur">

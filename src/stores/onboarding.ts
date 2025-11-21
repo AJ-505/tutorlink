@@ -109,7 +109,15 @@ export const useOnboardingStore = create<OnboardingState>()(
   persist(
     (set, get) => ({
       ...initial,
-      setRole: (r) => set({ role: r }),
+      setRole: (r) => {
+        console.log("User log: [STORE] 🔄 setRole called with:", r);
+        console.log("User log: [STORE] Previous role:", get().role);
+        set({ role: r });
+        console.log("User log: [STORE] ✅ Role updated to:", r);
+        console.log(
+          "User log: [STORE] This will be persisted to sessionStorage",
+        );
+      },
       toggleGoal: (g) => {
         const next = new Set(get().goals);
         if (next.has(g)) {
@@ -169,7 +177,11 @@ export const useOnboardingStore = create<OnboardingState>()(
         set({ preferredSessionTypes: next });
       },
 
-      reset: () =>
+      reset: () => {
+        console.log(
+          "User log: [STORE] 🔄 reset() called - clearing all onboarding data",
+        );
+        console.log("User log: [STORE] Current role before reset:", get().role);
         set({
           ...initial,
           goals: new Set(),
@@ -178,7 +190,11 @@ export const useOnboardingStore = create<OnboardingState>()(
           teachingLevels: new Set(),
           teachingStyle: new Set(),
           preferredSessionTypes: new Set(),
-        }),
+        });
+        console.log(
+          "User log: [STORE] ✅ Store reset complete - sessionStorage will be cleared",
+        );
+      },
     }),
     {
       name: "tl-onboarding",
@@ -197,7 +213,18 @@ export const useOnboardingStore = create<OnboardingState>()(
         preferredSessionTypes: Array.from(state.preferredSessionTypes),
       }),
       onRehydrateStorage: () => (state) => {
-        if (!state) return;
+        console.log(
+          "User log: [STORE] 🔄 onRehydrateStorage callback triggered",
+        );
+        if (!state) {
+          console.log(
+            "User log: [STORE] ⚠️ No state to rehydrate (sessionStorage empty)",
+          );
+          return;
+        }
+        console.log("User log: [STORE] Rehydrating from sessionStorage...");
+        console.log("User log: [STORE] Role being rehydrated:", state.role);
+
         // Rehydrate arrays back to Sets
         const hydratedState = state as unknown as {
           goals?: LearningGoal[];
@@ -229,6 +256,11 @@ export const useOnboardingStore = create<OnboardingState>()(
         }
         // mark store as hydrated after persistence is applied
         state.hydrated = true;
+        console.log("User log: [STORE] ✅ Store hydrated successfully");
+        console.log(
+          "User log: [STORE] Final role after hydration:",
+          state.role,
+        );
       },
     },
   ),

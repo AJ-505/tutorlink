@@ -51,7 +51,7 @@ export default function Home() {
               Welcome To
             </p>
 
-            <h1 className="font-roboto-mono text-4xl tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl">
+            <h1 className="font-inter text-4xl tracking-tight text-neutral-900 sm:text-5xl lg:text-6xl">
               <span>Tutor</span>
               <span className="text-[#1E88FF]">Link</span>
               <span
@@ -148,7 +148,7 @@ export default function Home() {
 
                   {/* Right Side - Content */}
                   <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-12">
-                    <h2 className="font-poppins mb-6 text-2xl font-semibold text-neutral-900 sm:text-3xl lg:text-4xl">
+                    <h2 className="font-inter mb-6 text-2xl font-semibold text-neutral-900 sm:text-3xl lg:text-4xl">
                       About TutorLink
                     </h2>
                     <p className="mb-6 text-base leading-relaxed text-neutral-700 sm:text-lg">
@@ -187,7 +187,7 @@ export default function Home() {
             {/* For Students */}
             <div className="mb-16 lg:mb-20">
               <div className="mb-8 rounded-2xl bg-[#1E88FF] px-6 py-4 text-center">
-                <h3 className="font-poppins text-xl font-bold text-white sm:text-2xl">
+                <h3 className="font-inter text-xl font-bold text-white sm:text-2xl">
                   FOR STUDENTS
                 </h3>
               </div>
@@ -214,7 +214,7 @@ export default function Home() {
             {/* For Tutors */}
             <div>
               <div className="mb-8 rounded-2xl bg-[#1E88FF] px-6 py-4 text-center">
-                <h3 className="font-poppins text-xl font-bold text-white sm:text-2xl">
+                <h3 className="font-inter text-xl font-bold text-white sm:text-2xl">
                   FOR TUTORS
                 </h3>
               </div>
@@ -248,11 +248,11 @@ export default function Home() {
           <div className="relative overflow-hidden rounded-3xl bg-linear-to-b from-[#1E88FF] via-white to-[#1E88FF]">
             <div className="relative mx-auto max-w-4xl px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
               <div className="text-center">
-                <h2 className="font-poppins mb-8 text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl">
+                <h2 className="font-inter mb-8 text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl">
                   FIND TUTORS
                 </h2>
                 <div className="mt-12">
-                  <p className="font-poppins text-lg font-medium text-neutral-900 sm:text-xl">
+                  <p className="font-inter text-lg font-medium text-neutral-900 sm:text-xl">
                     Getting <em>help</em> or sharing your{" "}
                     <strong>knowledge</strong> has never been{" "}
                     <em>
@@ -280,7 +280,7 @@ export default function Home() {
           <div className="relative overflow-hidden rounded-3xl bg-linear-to-b from-[#1E88FF] via-white to-[#1E88FF]">
             <div className="relative mx-auto max-w-4xl px-6 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
               <div className="text-center">
-                <h2 className="font-poppins text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl">
+                <h2 className="font-inter text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl">
                   EduFeed
                 </h2>
                 <div className="mt-8">
@@ -301,7 +301,7 @@ export default function Home() {
               <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 {/* Contact Us */}
                 <div className="text-center md:text-left">
-                  <h3 className="font-poppins mb-4 text-xl font-bold text-white italic sm:text-2xl">
+                  <h3 className="font-inter mb-4 text-xl font-bold text-white italic sm:text-2xl">
                     Contact Us
                   </h3>
                   <p className="mb-4 text-white">
@@ -322,7 +322,7 @@ export default function Home() {
 
                 {/* Phone & Email */}
                 <div className="text-center md:text-left">
-                  <h3 className="font-poppins mb-4 text-xl font-bold text-white italic sm:text-2xl">
+                  <h3 className="font-inter mb-4 text-xl font-bold text-white italic sm:text-2xl">
                     Phone & Email
                   </h3>
                   <div className="space-y-3">
@@ -356,7 +356,7 @@ export default function Home() {
 
                 {/* Info */}
                 <div className="text-center md:text-left">
-                  <h3 className="font-poppins mb-4 text-xl font-bold text-white italic sm:text-2xl">
+                  <h3 className="font-inter mb-4 text-xl font-bold text-white italic sm:text-2xl">
                     Info
                   </h3>
                   <div className="text-white">

@@ -41,7 +41,7 @@ export default function DashboardHome() {
   return (
     <div className="space-y-6">
       <header className="flex flex-col gap-1">
-        <h1 className="font-poppins text-2xl font-semibold text-neutral-900">
+        <h1 className="font-inter text-2xl font-semibold text-neutral-900">
           Welcome back{name ? ` ${name}` : ""}!
         </h1>
         <p className="text-neutral-600">Jump back into learning</p>

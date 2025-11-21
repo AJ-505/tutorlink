@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import { type Metadata } from "next";
-import { cal, inter } from "./fonts";
+import { inter } from "./fonts";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
 
@@ -20,9 +20,9 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="en"
-        className={`${inter.variable} ${cal.variable} antialiased`}
+        className={`${inter.variable} antialiased`}
       >
-        <body className="font-primary antialiased">
+        <body className="font-inter antialiased">
           <TRPCReactProvider>
             {children}
             <Toaster />
