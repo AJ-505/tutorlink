@@ -4,6 +4,7 @@ import { useState } from "react";
 import { api } from "@/trpc/react";
 import { TutorCard } from "./tutor-card";
 import { Search } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface TutorWithUser {
   id: string;
@@ -75,7 +76,26 @@ export function TutorSearch() {
             {/* Results */}
             <div className="max-h-96 overflow-y-auto p-6">
               {isLoading ? (
-                <div className="text-center text-neutral-500">Searching...</div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="rounded-lg border border-neutral-200 bg-white p-4"
+                    >
+                      <div className="mb-3 flex items-center gap-3">
+                        <Skeleton className="h-12 w-12 rounded-full" />
+                        <div className="flex-1">
+                          <Skeleton className="mb-2 h-5 w-32" />
+                          <Skeleton className="h-4 w-24" />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Skeleton className="h-4 w-full" />
+                        <Skeleton className="h-4 w-3/4" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               ) : results.length === 0 ? (
                 <div className="text-center text-neutral-500">
                   No tutors found matching &quot;{query}&quot;
