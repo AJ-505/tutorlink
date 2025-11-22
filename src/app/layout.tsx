@@ -20,7 +20,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html
         lang="en"
-        className={`${inter.variable} ${cal.variable} antialiased`}
+        className={`${inter.variable} ${cal.variable} scroll-smooth antialiased`}
       >
         <body className="font-primary antialiased">
           <TRPCReactProvider>

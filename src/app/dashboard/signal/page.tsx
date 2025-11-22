@@ -1,19 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { Activity, Clock, Trash2, Zap } from "lucide-react";
-
-const SignalForm = dynamic(
-  () => import("./_components/signal-form").then((mod) => mod.SignalForm),
-  {
-    loading: () => (
-      <div className="h-64 animate-pulse rounded-lg bg-gray-200" />
-    ),
-    ssr: false,
-  },
-);
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Activity, Clock, Trash2, Zap } from "lucide-react";
+import { SignalForm } from "./_components/signal-form";
 import { api } from "@/trpc/react";
 import { toast, Toaster } from "sonner";
 
@@ -30,33 +20,33 @@ type SignalData = {
 const urgencyConfig = {
   1: {
     label: "Low",
-    bg: "bg-blue-100",
-    text: "text-blue-900",
-    badge: "border-blue-300",
+    bg: "bg-blue-900/20",
+    text: "text-blue-300",
+    badge: "border-blue-400/50",
   },
   2: {
     label: "Moderate",
-    bg: "bg-yellow-100",
-    text: "text-yellow-900",
-    badge: "border-yellow-300",
+    bg: "bg-yellow-900/20",
+    text: "text-yellow-300",
+    badge: "border-yellow-400/50",
   },
   3: {
     label: "High",
-    bg: "bg-orange-100",
-    text: "text-orange-900",
-    badge: "border-orange-300",
+    bg: "bg-orange-900/20",
+    text: "text-orange-300",
+    badge: "border-orange-400/50",
   },
   4: {
     label: "Very High",
-    bg: "bg-red-100",
-    text: "text-red-900",
-    badge: "border-red-300",
+    bg: "bg-red-900/20",
+    text: "text-red-300",
+    badge: "border-red-400/50",
   },
   5: {
     label: "Critical",
-    bg: "bg-red-200",
-    text: "text-red-950",
-    badge: "border-red-400",
+    bg: "bg-red-600/30",
+    text: "text-red-200 font-bold",
+    badge: "border-red-500",
   },
 };
 
@@ -64,47 +54,49 @@ function SignalCard({ signal }: { signal: SignalData }) {
   const router = useRouter();
   const acceptSignal = api.signal.acceptSignal.useMutation();
   const config = urgencyConfig[signal.urgency as keyof typeof urgencyConfig];
-  const timeAgo = new Date(signal.createdAt);
+  const timeAgo = new Date(signal.createdAt as string);
   const now = new Date();
   const diffMs = now.getTime() - timeAgo.getTime();
   const diffMins = Math.floor(diffMs / 60000);
-  const displayTime = diffMins < 1 ? "just now" : `${diffMins}m ago`;
+  const displayTime = diffMins < 1 ? "Just now" : `${diffMins}m ago`;
 
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white p-4 transition-shadow duration-200 hover:shadow-md">
-      <div className="mb-3 flex items-start justify-between">
-        <div className="flex flex-1 items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-indigo-400 to-indigo-600 font-semibold text-white">
-            {signal.studentId.charAt(0).toUpperCase()}
+    <div className="group rounded-2xl border border-white/10 bg-[#141517]/80 p-6 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-10px_rgba(94,106,210,0.3)]">
+      <div className="mb-6 flex items-start justify-between">
+        <div className="flex min-w-0 flex-1 items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#5E6AD2] to-[#929BF0] shadow-lg">
+            <span className="text-sm font-semibold text-white">
+              {signal.studentId.slice(0, 1).toUpperCase()}
+            </span>
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-medium text-neutral-900">
+            <p className="truncate text-base font-semibold text-[#EDEDEF]">
               Student #{signal.studentId.slice(0, 8)}
             </p>
-            <p className="flex items-center gap-1 text-xs text-neutral-500">
-              <Clock size={12} />
+            <p className="mt-0.5 flex items-center gap-1.5 text-sm text-[#8A8F98]">
+              <Clock size={14} />
               {displayTime}
             </p>
           </div>
         </div>
         <div
-          className={`rounded px-2 py-1 text-xs font-semibold ${config.badge} border-2 ${config.bg} ${config.text}`}
+          className={`rounded-xl border-2 px-3 py-1.5 text-xs font-semibold ${config.badge} ${config.bg} ${config.text}`}
         >
           {config.label}
         </div>
       </div>
 
-      <div className="mb-3">
-        <span className="mb-2 inline-block rounded-full bg-indigo-100 px-2.5 py-1 text-xs font-semibold text-indigo-900">
+      <div className="mb-8 space-y-4">
+        <span className="inline-block rounded-full border border-indigo-500/40 bg-indigo-500/20 px-4 py-1.5 text-sm font-semibold text-indigo-300">
           {signal.subject}
         </span>
-        <p className="line-clamp-2 text-sm text-neutral-700">
+        <p className="line-clamp-3 text-base leading-relaxed text-[#EDEDEF]">
           {signal.message}
         </p>
       </div>
 
       <button
-        className="mt-3 w-full rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-indigo-700 active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-xl bg-gradient-to-r from-[#5E6AD2] to-[#7C8CF6] px-6 py-3.5 text-base font-semibold text-white shadow-xl transition-all duration-300 hover:from-[#4F5AC8] hover:to-[#6E7AD9] hover:shadow-[0_0_30px_-10px_#5E6AD2] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none"
         disabled={acceptSignal.isPending}
         onClick={() => {
           acceptSignal.mutate(
@@ -120,7 +112,14 @@ function SignalCard({ signal }: { signal: SignalData }) {
           );
         }}
       >
-        {acceptSignal.isPending ? "Accepting..." : "Accept Signal"}
+        {acceptSignal.isPending ? (
+          <>
+            <div className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/50 border-t-white" />
+            <span>Accepting...</span>
+          </>
+        ) : (
+          "Accept Signal"
+        )}
       </button>
     </div>
   );
@@ -145,165 +144,203 @@ export default function SignalPage() {
     },
   });
 
+  const statusConfig = {
+    pending: "bg-yellow-500/20 border border-yellow-500/30 text-yellow-300",
+    accepted: "bg-emerald-500/20 border border-emerald-500/30 text-emerald-300",
+    rejected: "bg-red-500/20 border border-red-500/30 text-red-300",
+  } as const;
+
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-0">
+    <div className="mx-auto w-full max-w-6xl space-y-16 px-4 py-16 sm:px-6 lg:px-8">
       <Toaster position="top-right" richColors />
+
       {/* Header */}
-      <div className="mb-8">
-        <div className="mb-2 flex items-center gap-3">
-          <div className="rounded-lg bg-indigo-100 p-2">
-            <Zap size={24} className="text-indigo-600" />
+      <div className="max-w-3xl space-y-6">
+        <div className="flex items-center gap-4">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#5E6AD2] to-[#929BF0] shadow-[0_0_30px_-12px_#5E6AD2/0.4]">
+            <Zap className="h-7 w-7 text-white" />
           </div>
-          <h1 className="text-3xl font-bold text-neutral-900 sm:text-4xl">
-            Signal
-          </h1>
+          <div>
+            <h1 className="text-4xl font-bold tracking-tight text-white">
+              Signal
+            </h1>
+            <p className="mt-1 text-lg leading-relaxed text-[#8A8F98]">
+              Get instant help from nearby tutors by broadcasting your signal
+            </p>
+          </div>
         </div>
-        <p className="text-sm text-neutral-600 sm:text-base">
-          Get instant help from nearby tutors by broadcasting your signal
-        </p>
       </div>
 
-      {/* Tabs (students only) */}
+      {/* Student Tabs */}
       {!isTutor && (
-        <div className="mb-8 flex gap-4 border-b border-neutral-200">
+        <div className="flex max-w-2xl items-center gap-8 border-b border-white/10 pb-6">
           <button
             onClick={() => setTabActive("create")}
-            className={`border-b-2 px-4 py-3 text-sm font-semibold transition-colors duration-200 sm:text-base ${
+            className={`px-6 pb-4 text-lg font-semibold transition-colors ${
               tabActive === "create"
-                ? "border-indigo-600 text-indigo-600"
-                : "border-transparent text-neutral-600 hover:text-neutral-900"
+                ? "border-b-2 border-[#5E6AD2] text-white"
+                : "text-[#8A8F98] hover:text-white"
             }`}
           >
             Create Signal
           </button>
           <button
             onClick={() => setTabActive("manage")}
-            className={`flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-semibold transition-colors duration-200 sm:text-base ${
+            className={`flex items-center gap-2 px-6 pb-4 text-lg font-semibold transition-colors ${
               tabActive === "manage"
-                ? "border-indigo-600 text-indigo-600"
-                : "border-transparent text-neutral-600 hover:text-neutral-900"
+                ? "border-b-2 border-[#5E6AD2] text-white"
+                : "text-[#8A8F98] hover:text-white"
             }`}
           >
-            <Activity size={18} />
+            <Activity size={20} />
             Manage Signals
-            <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs font-bold text-neutral-700">
+            <span className="ml-2 rounded-full bg-white/10 px-2 py-0.5 text-xs font-semibold text-white">
               {Array.isArray(mySignals) ? mySignals.length : 0}
             </span>
           </button>
         </div>
       )}
 
-      {/* Tab Content */}
-      <div className="mb-12">
-        {/* Tutor view: just Active Signals */}
+      {/* Content */}
+      <div className="max-w-4xl">
         {isTutor ? (
-          <div className="space-y-4">
+          <div className="space-y-8">
             {isLoadingActive ? (
-              <div className="py-12 text-center">
-                <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600"></div>
-                <p className="text-neutral-600">Loading active signals...</p>
-              </div>
-            ) : Array.isArray(activeSignals) && activeSignals.length > 0 ? (
-              <>
-                <p className="mb-4 text-sm text-neutral-600">
-                  Showing {activeSignals.length} active signals from students
+              <div className="py-20 text-center">
+                <div className="mx-auto mb-6 h-12 w-12 animate-spin rounded-2xl border-4 border-white/20 border-t-[#5E6AD2]"></div>
+                <p className="text-xl text-[#8A8F98]">
+                  Loading active signals...
                 </p>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              </div>
+            ) : activeSignals.length > 0 ? (
+              <>
+                <p className="mb-8 text-lg text-[#8A8F98]">
+                  Showing {activeSignals.length} active signals from students
+                  nearby
+                </p>
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
                   {activeSignals.map((signal: SignalData) => (
                     <SignalCard key={signal.id} signal={signal} />
                   ))}
                 </div>
               </>
             ) : (
-              <div className="py-12 text-center">
-                <Activity size={48} className="mx-auto mb-4 text-neutral-300" />
-                <p className="text-lg text-neutral-600">
+              <div className="py-24 text-center">
+                <Activity className="mx-auto mb-8 h-20 w-20 text-white/30" />
+                <p className="mb-2 text-3xl font-semibold text-[#EDEDEF]">
                   No active signals right now
                 </p>
-                <p className="text-sm text-neutral-500">Check back soon!</p>
+                <p className="text-xl text-[#8A8F98]">
+                  Check back soon for new requests!
+                </p>
               </div>
             )}
           </div>
         ) : tabActive === "create" ? (
-          <div className="space-y-8">
-            <div className="rounded-lg border border-indigo-100 bg-linear-to-r from-indigo-50 to-blue-50 p-6">
-              <h2 className="mb-2 text-xl font-bold text-neutral-900">
-                🚀 Need help fast?
-              </h2>
-              <p className="text-neutral-700">
-                Send a signal and connect with available tutors in seconds. The
-                more urgent your request, the faster you&apos;ll get matched.
-              </p>
+          <div className="space-y-12">
+            {/* Info Banner */}
+            <div className="relative overflow-hidden rounded-2xl border border-[#5E6AD2]/20 bg-gradient-to-r from-[#5E6AD2]/5 to-transparent p-8 shadow-2xl">
+              <div className="flex items-start gap-4">
+                <div className="shrink-0 rounded-xl bg-[#5E6AD2]/20 p-3">
+                  <Activity className="h-6 w-6 text-[#929BF0]" />
+                </div>
+                <div className="space-y-2">
+                  <h2 className="text-2xl font-bold text-white">
+                    Need help fast?
+                  </h2>
+                  <p className="max-w-xl text-lg leading-relaxed text-[#8A8F98]">
+                    Send a signal and connect with available tutors in seconds.
+                    The more urgent your request, the faster you'll get matched.
+                  </p>
+                </div>
+              </div>
             </div>
             <SignalForm />
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-8">
             {isLoadingMy ? (
-              <div className="py-12 text-center">
-                <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-4 border-indigo-200 border-t-indigo-600"></div>
-                <p className="text-neutral-600">Loading your signals...</p>
-              </div>
-            ) : Array.isArray(mySignals) && mySignals.length > 0 ? (
-              <>
-                <p className="mb-4 text-sm text-neutral-600">
-                  You have {mySignals.length} signals
+              <div className="py-20 text-center">
+                <div className="mx-auto mb-6 h-12 w-12 animate-spin rounded-2xl border-4 border-white/20 border-t-[#5E6AD2]"></div>
+                <p className="text-xl text-[#8A8F98]">
+                  Loading your signals...
                 </p>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              </div>
+            ) : mySignals.length > 0 ? (
+              <>
+                <p className="mb-8 text-lg text-[#8A8F98]">
+                  You have {mySignals.length} signal
+                  {mySignals.length !== 1 ? "s" : ""}
+                </p>
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3">
                   {mySignals.map((signal: SignalData) => {
                     const config =
                       urgencyConfig[
                         signal.urgency as keyof typeof urgencyConfig
                       ];
-                    const timeAgo = new Date(signal.createdAt);
+                    const timeAgo = new Date(signal.createdAt as string);
                     const now = new Date();
                     const diffMs = now.getTime() - timeAgo.getTime();
                     const diffMins = Math.floor(diffMs / 60000);
                     const displayTime =
-                      diffMins < 1 ? "just now" : `${diffMins}m ago`;
+                      diffMins < 1 ? "Just now" : `${diffMins}m ago`;
                     const cancellable = signal.status === "pending";
+                    const statusStyle =
+                      statusConfig[
+                        signal.status as keyof typeof statusConfig
+                      ] || "bg-gray-500/20 border-gray-500/30 text-gray-300";
                     return (
                       <div
                         key={signal.id}
-                        className="rounded-lg border border-neutral-200 bg-white p-4"
+                        className="rounded-2xl border border-white/10 bg-[#141517]/80 p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(255,255,255,0.05)]"
                       >
-                        <div className="mb-3 flex items-start justify-between">
-                          <div className="flex min-w-0 flex-1 items-center gap-2">
-                            <div
-                              className={`rounded px-2 py-1 text-xs font-semibold ${config.badge} border-2 ${config.bg} ${config.text}`}
-                            >
-                              {config.label}
-                            </div>
+                        <div className="mb-6 flex items-start justify-between">
+                          <div
+                            className={`rounded-xl border-2 px-3 py-1.5 text-xs font-semibold ${config.badge} ${config.bg} ${config.text}`}
+                          >
+                            {config.label}
                           </div>
                           <span
-                            className={`rounded px-2 py-1 text-xs font-semibold ${signal.status === "pending" ? "bg-yellow-100 text-yellow-900" : signal.status === "accepted" ? "bg-green-100 text-green-900" : signal.status === "rejected" ? "bg-red-100 text-red-900" : "bg-neutral-100 text-neutral-700"}`}
+                            className={`rounded-lg px-3 py-1 text-xs font-semibold ${statusStyle}`}
                           >
-                            {signal.status}
+                            {signal.status.charAt(0).toUpperCase() +
+                              signal.status.slice(1)}
                           </span>
                         </div>
-                        <div className="mb-3">
-                          <span className="mb-2 inline-block rounded-full bg-indigo-100 px-2.5 py-1 text-xs font-semibold text-indigo-900">
+                        <div className="mb-8 space-y-4">
+                          <span className="inline-block rounded-full border border-indigo-500/40 bg-indigo-500/20 px-4 py-1.5 text-sm font-semibold text-indigo-300">
                             {signal.subject}
                           </span>
-                          <p className="line-clamp-2 text-sm text-neutral-700">
+                          <p className="line-clamp-3 text-base leading-relaxed text-[#EDEDEF]">
                             {signal.message}
                           </p>
-                          <p className="mt-2 flex items-center gap-1 text-xs text-neutral-500">
-                            <Clock size={12} />
+                          <p className="flex items-center gap-1.5 text-sm text-[#8A8F98]">
+                            <Clock size={14} />
                             {displayTime}
                           </p>
                         </div>
                         <button
-                          className={`mt-2 flex w-full items-center justify-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold transition-colors duration-200 ${cancellable ? "bg-red-600 text-white hover:bg-red-700" : "cursor-not-allowed bg-neutral-200 text-neutral-500"}`}
+                          className={`flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-base font-semibold shadow-xl transition-all duration-300 active:scale-[0.98] ${
+                            cancellable && !deleteSignal.isPending
+                              ? "border-0 bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 hover:shadow-[0_0_30px_-10px_#ef4444]"
+                              : "cursor-not-allowed border border-white/10 bg-white/5 text-[#8A8F98]"
+                          }`}
                           disabled={!cancellable || deleteSignal.isPending}
                           onClick={() =>
                             deleteSignal.mutate({ signalId: signal.id })
                           }
                         >
-                          <Trash2 size={16} />
-                          {deleteSignal.isPending
-                            ? "Cancelling..."
-                            : "Cancel Signal"}
+                          {deleteSignal.isPending ? (
+                            <>
+                              <div className="h-4 w-4 animate-spin rounded-full border-2 border-current/50 border-t-current" />
+                              Cancelling...
+                            </>
+                          ) : (
+                            <>
+                              <Trash2 size={16} />
+                              Cancel Signal
+                            </>
+                          )}
                         </button>
                       </div>
                     );
@@ -311,40 +348,58 @@ export default function SignalPage() {
                 </div>
               </>
             ) : (
-              <div className="py-12 text-center">
-                <Activity size={48} className="mx-auto mb-4 text-neutral-300" />
-                <p className="text-lg text-neutral-600">
-                  You don&apos;t have any signals yet
+              <div className="py-24 text-center">
+                <Activity className="mx-auto mb-8 h-20 w-20 text-white/30" />
+                <p className="mb-2 text-3xl font-semibold text-[#EDEDEF]">
+                  You don't have any signals yet
                 </p>
-                <p className="text-sm text-neutral-500">
-                  Create one to get help fast
+                <p className="mb-8 text-xl text-[#8A8F98]">
+                  Create one above to get help fast
                 </p>
+                <button
+                  onClick={() => setTabActive("create")}
+                  className="rounded-xl bg-gradient-to-r from-[#5E6AD2] to-[#929BF0] px-8 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-[0_0_30px_-10px_#5E6AD2]"
+                >
+                  Create Signal Now
+                </button>
               </div>
             )}
           </div>
         )}
       </div>
 
-      {/* Tips Section */}
-      <div className="grid grid-cols-1 gap-4 border-t border-neutral-200 py-8 sm:grid-cols-2">
-        <div className="space-y-2 p-4">
-          <h3 className="flex items-center gap-2 font-semibold text-neutral-900">
-            <span className="text-xl">⚡</span> Pro Tips
+      {/* Tips & Stats */}
+      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-12 border-t border-white/10 pt-20 lg:grid-cols-2">
+        <div className="space-y-4 rounded-2xl border border-white/5 bg-white/3 p-8 shadow-2xl backdrop-blur-sm">
+          <h3 className="flex items-center gap-3 text-xl font-bold text-white">
+            <Zap className="h-6 w-6 text-yellow-400" />
+            Pro Tips
           </h3>
-          <ul className="space-y-1 text-sm text-neutral-600">
-            <li>• Be specific about your question</li>
-            <li>• Set the correct urgency level</li>
-            <li>• Respond quickly when tutors accept</li>
+          <ul className="space-y-3 text-sm text-[#8A8F98]">
+            <li className="flex items-center gap-2">
+              • Be specific about your question
+            </li>
+            <li className="flex items-center gap-2">
+              • Set the correct urgency level
+            </li>
+            <li className="flex items-center gap-2">
+              • Respond quickly when tutors accept
+            </li>
           </ul>
         </div>
-        <div className="space-y-2 p-4">
-          <h3 className="flex items-center gap-2 font-semibold text-neutral-900">
-            <span className="text-xl">📊</span> Current Stats
+        <div className="space-y-4 rounded-2xl border border-white/5 bg-white/3 p-8 shadow-2xl backdrop-blur-sm">
+          <h3 className="flex items-center gap-3 text-xl font-bold text-white">
+            <Activity className="h-6 w-6 text-emerald-400" />
+            Current Stats
           </h3>
-          <ul className="space-y-1 text-sm text-neutral-600">
-            <li>• Avg response time: 2-5 minutes</li>
-            <li>• 150+ active tutors online</li>
-            <li>• 98% satisfaction rate</li>
+          <ul className="space-y-3 text-sm text-[#8A8F98]">
+            <li className="flex items-center gap-2">
+              • Avg response time: 2-5 minutes
+            </li>
+            <li className="flex items-center gap-2">
+              • 150+ active tutors online
+            </li>
+            <li className="flex items-center gap-2">• 98% satisfaction rate</li>
           </ul>
         </div>
       </div>

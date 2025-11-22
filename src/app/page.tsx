@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Sparkles, Users, BookOpen } from "lucide-react";
+import {
+  ChevronRight,
+  Sparkles,
+  Users,
+  BookOpen,
+  LayoutDashboard,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function LandingPage() {
@@ -19,21 +25,38 @@ export default function LandingPage() {
               TutorLink
             </Link>
             <nav className="hidden items-center gap-6 text-sm text-zinc-400 md:flex">
-              <Link href="#" className="transition-colors hover:text-white">
+              <Link
+                href="#features"
+                className="transition-colors hover:text-white"
+              >
                 Features
               </Link>
-              <Link href="#" className="transition-colors hover:text-white">
-                Method
+              <Link
+                href="#stats"
+                className="transition-colors hover:text-white"
+              >
+                Stats
               </Link>
-              <Link href="#" className="transition-colors hover:text-white">
-                Customers
-              </Link>
-              <Link href="#" className="transition-colors hover:text-white">
-                Pricing
+              <Link
+                href="#join-us"
+                className="transition-colors hover:text-white"
+              >
+                Join Us
               </Link>
             </nav>
           </div>
           <div className="flex items-center gap-4">
+            {/* Added standout Dashboard CTA for logged-in users */}
+            <Link href="/dashboard">
+              <Button
+                size="sm"
+                className="hidden items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 font-medium text-blue-400 transition-colors hover:bg-blue-500/20 hover:text-blue-300 md:flex"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                Dashboard
+              </Button>
+            </Link>
+
             <Link
               href="#"
               className="hidden text-sm text-zinc-400 transition-colors hover:text-white sm:block"
@@ -150,7 +173,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features Grid (Bento Style) */}
-        <section className="bg-[#08090A] px-6 py-24">
+        <section className="bg-[#08090A] px-6 py-24" id="features">
           <div className="container mx-auto max-w-6xl">
             <div className="mb-16 text-center">
               <h2 className="mb-4 text-3xl font-semibold tracking-tight md:text-4xl">
@@ -305,7 +328,7 @@ export default function LandingPage() {
         </section>
 
         {/* Stats / Trust Section */}
-        <section className="border-t border-white/5 py-20">
+        <section className="border-t border-white/5 py-20" id="stats">
           <div className="container mx-auto max-w-5xl px-6">
             <div className="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
               <div>
@@ -329,7 +352,7 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="relative overflow-hidden px-6 py-32">
+        <section className="relative overflow-hidden px-6 py-32" id="join-us">
           <div className="absolute inset-0 bg-gradient-to-b from-[#08090A] via-[#0F1115] to-[#08090A]" />
           <div className="pointer-events-none absolute top-1/2 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/10 blur-[120px]" />
 

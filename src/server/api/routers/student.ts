@@ -7,7 +7,7 @@ import {
 import { invokeModel } from "@/server/bedrock";
 import { TRPCError } from "@trpc/server";
 
-// TODO: Implement student profile creation and updates
+// Student profile creation and updates implemented
 export const studentRouter = createTRPCRouter({
   createProfile: protectedProcedure
     .input(
@@ -36,7 +36,7 @@ export const studentRouter = createTRPCRouter({
         async (tx) => {
           const user = await tx.user.upsert({
             where: { clerkUid: clerkUser.id },
-            update: { name, email },
+            update: { name, email, role: "STUDENT" },
             create: {
               clerkUid: clerkUser.id,
               name,

@@ -45,20 +45,21 @@ export function TutorSearch() {
             placeholder="Search tutors by name..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 pl-10 text-sm text-neutral-900 placeholder-neutral-500 transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            className="group relative w-full rounded-lg border border-white/10 bg-[#141517] px-4 py-3 pl-10 text-sm text-white placeholder-[#8A8F98] transition-all focus-within:border-[#5E6AD2]/50 focus-within:ring-1 focus-within:ring-[#5E6AD2]/50 focus:outline-none"
           />
-          <Search className="absolute top-3 left-3 h-4 w-4 text-neutral-400" />
+          <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#5E6AD2]/20 to-purple-500/20 opacity-0 blur-xl transition-opacity duration-500 group-focus-within:opacity-100" />
+          <Search className="absolute top-3 left-3 h-4 w-4 text-[#8A8F98]" />
         </div>
       </form>
 
       {/* Search Results Modal */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/50 pt-20">
-          <div className="w-full max-w-2xl rounded-xl bg-white shadow-lg">
+          <div className="w-full max-w-2xl rounded-xl border border-white/10 bg-[#141517] shadow-2xl">
             {/* Header */}
-            <div className="border-b border-neutral-200 px-6 py-4">
+            <div className="border-b border-white/10 px-6 py-4">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-neutral-900">
+                <h3 className="text-lg font-semibold text-white">
                   Search Results
                 </h3>
                 <button
@@ -66,7 +67,7 @@ export function TutorSearch() {
                     setIsOpen(false);
                     setResults([]);
                   }}
-                  className="text-neutral-400 hover:text-neutral-600"
+                  className="text-[#8A8F98] hover:text-white"
                 >
                   ✕
                 </button>
@@ -80,24 +81,24 @@ export function TutorSearch() {
                   {Array.from({ length: 4 }).map((_, i) => (
                     <div
                       key={i}
-                      className="rounded-lg border border-neutral-200 bg-white p-4"
+                      className="group rounded-xl border border-white/5 bg-[#141517] p-4 transition-all hover:-translate-y-1 hover:border-white/10"
                     >
                       <div className="mb-3 flex items-center gap-3">
-                        <Skeleton className="h-12 w-12 rounded-full" />
-                        <div className="flex-1">
-                          <Skeleton className="mb-2 h-5 w-32" />
-                          <Skeleton className="h-4 w-24" />
+                        <div className="h-12 w-12 animate-pulse rounded-full bg-white/5" />
+                        <div className="flex-1 space-y-2">
+                          <div className="h-5 w-32 animate-pulse rounded bg-white/5" />
+                          <div className="h-4 w-24 animate-pulse rounded bg-white/5" />
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Skeleton className="h-4 w-full" />
-                        <Skeleton className="h-4 w-3/4" />
+                        <div className="h-3 w-full animate-pulse rounded bg-white/5" />
+                        <div className="h-3 w-3/4 animate-pulse rounded bg-white/5" />
                       </div>
                     </div>
                   ))}
                 </div>
               ) : results.length === 0 ? (
-                <div className="text-center text-neutral-500">
+                <div className="text-center text-[#8A8F98]">
                   No tutors found matching &quot;{query}&quot;
                 </div>
               ) : (

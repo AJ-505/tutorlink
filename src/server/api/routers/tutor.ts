@@ -1,4 +1,3 @@
-// TODO: Implement tutor profile creation and updates
 import { z } from "zod";
 import {
   createTRPCRouter,
@@ -33,7 +32,10 @@ export const tutorRouter = createTRPCRouter({
         });
       }
 
+      let newlyCreatedEmbedding: number[] = [];
+
       const profile = await ctx.db.$transaction(async (tx) => {
+        console.log("Upsertion begins");
         const user = await tx.user.upsert({
           where: { clerkUid: clerkUser.id },
           update: { name, email, role: "TUTOR" },
@@ -45,10 +47,13 @@ export const tutorRouter = createTRPCRouter({
           },
         });
 
+        console.log("Upsertion successful");
+        console.log("Find unique call begins");
         const existingProfile = await tx.tutorProfile.findUnique({
           where: { userId: user.id },
         });
 
+        console.log("Find unique call successful");
         if (existingProfile) {
           throw new TRPCError({
             code: "BAD_REQUEST",
@@ -56,6 +61,8 @@ export const tutorRouter = createTRPCRouter({
           });
         }
 
+        console.log("Creating tutor profile......");
+        console.log("Transaction begins");
         const newProfile = await tx.tutorProfile.create({
           data: {
             userId: user.id,
@@ -66,6 +73,7 @@ export const tutorRouter = createTRPCRouter({
           },
         });
 
+        console.log("Creating vector embedding......");
         const embeddingText = `
                     This text describes a tutor profile for an AI tutoring match system.
                     Subject Interests:
@@ -76,15 +84,19 @@ export const tutorRouter = createTRPCRouter({
                     ${input.teachingStyle.join(", ")}
                 `;
 
-        const { embedding } = await invokeModel(embeddingText);
-
-        await ctx.db.tutorProfile.update({
-          where: { id: newProfile.id },
-          data: { embedding },
-        });
+        newlyCreatedEmbedding = (await invokeModel(embeddingText)).embedding;
+        console.log("model invocation successful");
 
         return newProfile;
       });
+
+      console.log("updating tutor profile...");
+      await ctx.db.tutorProfile.update({
+        where: { id: profile.id },
+        data: { embedding: newlyCreatedEmbedding },
+      });
+
+      console.log("tutorprofile update successful!");
 
       return {
         success: true,

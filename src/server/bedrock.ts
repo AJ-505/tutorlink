@@ -17,6 +17,11 @@ export const bedrockClient = new BedrockRuntimeClient({
 const modelId = "amazon.titan-embed-text-v2:0";
 
 export const invokeModel = async (inputText: string) => {
+  const timestamp = new Date().toISOString();
+  console.log(
+    `[EMBEDDING-START] ${timestamp} | Text length: ${inputText.length} | Preview: ${inputText.substring(0, 200)}...`,
+  );
+
   const command = new InvokeModelCommand({
     modelId,
     contentType: "application/json",
@@ -31,5 +36,8 @@ export const invokeModel = async (inputText: string) => {
   const body = JSON.parse(new TextDecoder().decode(response.body)) as {
     embedding: number[];
   };
+  console.log(
+    `[EMBEDDING-DONE] ${timestamp} | Dimension: ${body.embedding.length} | Success`,
+  );
   return body;
 };
