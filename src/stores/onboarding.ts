@@ -22,7 +22,6 @@ export type LearningStyle =
 
 export type TutorGender = "Male" | "Female" | "Both" | null;
 
-// Tutor-specific types
 export type SubjectInterest =
   | "Mathematics"
   | "English"
@@ -60,7 +59,7 @@ export type OnboardingState = {
   // Tutor-specific fields
   subjectInterests: Set<SubjectInterest>;
   teachingLevels: Set<TeachingLevel>;
-  yearsOfExperience: number | null;
+  yearsOfExperience: number;
   teachingStyle: Set<TeachingStyle>;
   preferredSessionTypes: Set<SessionType>;
 
@@ -73,7 +72,7 @@ export type OnboardingState = {
   // Tutor actions
   toggleSubjectInterest: (s: SubjectInterest) => void;
   toggleTeachingLevel: (l: TeachingLevel) => void;
-  setYearsOfExperience: (years: number | null) => void;
+  setYearsOfExperience: (years: number) => void;
   toggleTeachingStyle: (s: TeachingStyle) => void;
   toggleSessionType: (t: SessionType) => void;
 
@@ -100,7 +99,7 @@ const initial: Pick<
   preferredTutorGender: null,
   subjectInterests: new Set<SubjectInterest>(),
   teachingLevels: new Set<TeachingLevel>(),
-  yearsOfExperience: null,
+  yearsOfExperience: 0,
   teachingStyle: new Set<TeachingStyle>(),
   preferredSessionTypes: new Set<SessionType>(),
 };

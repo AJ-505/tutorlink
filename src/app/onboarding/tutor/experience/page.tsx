@@ -23,7 +23,7 @@ export default function TutorExperience() {
       if (!isNaN(numValue)) {
         setYearsOfExperience(numValue);
       } else if (value === "") {
-        setYearsOfExperience(null);
+        setYearsOfExperience(0);
       }
     }
   };

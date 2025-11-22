@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useOnboardingStore } from "@/stores/onboarding";
+import { saveTutorInfo } from "@/actions/saveTutorInfo";
 
 export default function TutorSummary() {
   const role = useOnboardingStore((s) => s.role);
@@ -88,7 +89,16 @@ export default function TutorSummary() {
             <Button
               variant="brand"
               className="rounded-full px-8 py-6 text-black"
-              onClick={() => router.push("/dashboard")}
+              onClick={async () => {
+                await saveTutorInfo({
+                  subjectInterests,
+                  teachingLevels,
+                  yearsOfExperience,
+                  teachingStyle,
+                  preferredSessionTypes,
+                });
+                router.push("/dashboard");
+              }}
             >
               Finish
             </Button>
