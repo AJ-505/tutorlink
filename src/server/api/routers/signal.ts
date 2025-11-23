@@ -38,14 +38,27 @@ export const signalRouter = createTRPCRouter({
         studentId,
         createdAt: new Date().toISOString(),
       };
+
+      // Create signal in database first
       await ctx.db.signal.create({
         data: signalData,
       });
       console.log("Signal created:", signalData);
-      await broadcastToTutors({ event: "new-signal", data: signalData });
+
+      // Attempt to broadcast to tutors (best-effort, non-blocking)
+      const broadcastSuccess = await broadcastToTutors({
+        event: "new-signal",
+        data: signalData,
+      });
+
+      // Return success message regardless of broadcast status
+      // The signal is created, tutors will see it when they refresh
       return {
         success: true,
-        message: "Signal created and broadcast successfully",
+        message: broadcastSuccess
+          ? "Signal sent successfully! Tutors are being notified."
+          : "Signal created successfully! Tutors will see it soon.",
+        broadcastSuccess,
       };
     }),
 

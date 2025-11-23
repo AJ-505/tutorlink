@@ -67,22 +67,43 @@ export function SignalForm() {
     setIsSubmitting(true);
 
     try {
-      await createSignalMutation.mutateAsync({
+      const result = await createSignalMutation.mutateAsync({
         message,
         subject: selectedSubject,
         urgency,
         status: "pending",
       });
 
-      toast.success("Signal sent! Tutors are being notified...");
+      // Show success message based on broadcast status
+      if (result.broadcastSuccess) {
+        toast.success("Signal sent! Tutors are being notified...");
+      } else {
+        toast.success(
+          "Signal created! Tutors will see it soon (real-time notifications temporarily unavailable).",
+        );
+      }
+
       setSelectedSubject("");
       setMessage("");
       setUrgency(3);
     } catch (err) {
-      const errorMessage =
-        err instanceof Error
-          ? err.message
-          : "Failed to create signal. Please try again.";
+      // Provide user-friendly error messages
+      let errorMessage = "Something went wrong. Please try again.";
+
+      if (err instanceof Error) {
+        // Check for specific error types
+        if (err.message.includes("fetch")) {
+          errorMessage =
+            "Network error. Please check your connection and try again.";
+        } else if (err.message.includes("unauthorized")) {
+          errorMessage = "You need to be logged in to send a signal.";
+        } else if (err.message.includes("validation")) {
+          errorMessage = "Please check your input and try again.";
+        } else {
+          errorMessage = err.message;
+        }
+      }
+
       toast.error(errorMessage);
       console.error("Error creating signal:", err);
     } finally {
